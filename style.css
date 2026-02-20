@@ -54,7 +54,7 @@ body, html {
 
 /* Nav links */
 .link-unique {
-  color: #fff;
+  color: black;
   font-weight: 500;
   margin: 0 16px;
   position: relative;
@@ -184,12 +184,17 @@ body, html {
   background: #E7D3BB; /* light beige base */
 }
 
-/* Overlay */
-.hero-overlay{
+.hero-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(255,179,198,0.3), rgba(240,47,52,0.7));
   z-index: 1;
+  background: radial-gradient(
+    circle at center,
+    rgba(255,179,198,0.2) 0%,   /* #ffb3c6 soft pink */
+    rgba(231,211,187,0.2) 40%,  /* #e7d3bb soft beige */
+    rgba(240,47,52,0.4) 70%,    /* #f02f34 soft red */
+    rgba(214,83,109,0.5) 100%   /* #d6536d deeper red */
+  );
 }
 
 /* Content */
@@ -370,15 +375,23 @@ body, html {
   from{ transform: translateY(40px); opacity: 0;}
   to{ transform: translateY(0); opacity: 1;}
 }
-/* ==========================
-   HERO SECTION RESPONSIVE
-========================== */
+/* ========================== HERO SECTION RESPONSIVE ========================== */
 
+/* CSS Variable for navbar height */
+:root {
+  --navbar-height: 80px; /* adjust to match your actual navbar height */
+}
+
+/* Mobile & Tablet (max-width: 992px) */
 @media(max-width: 992px) {
   .hero-elegant {
-    padding-top: 30px; /* closer to navbar */
+    padding-top: calc(var(--navbar-height) + 20px); /* safe spacing from fixed navbar */
     padding-bottom: 30px;
     text-align: center;
+    min-height: calc(100vh - var(--navbar-height)); /* ensures hero fills screen */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .hero-title {
@@ -430,6 +443,7 @@ body, html {
   .hero-buttons a::after {
     content: none !important; /* removes pseudo-element */
   }
+
   .hero-buttons a:hover::after,
   .hero-buttons a:focus::after {
     content: none !important; /* prevents hover underline */
@@ -479,6 +493,14 @@ body, html {
     transform: scaleX(1);
     transform-origin: left;
   }
+}
+
+/* Ensure navbar stays on top */
+.navbar-unique {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
 }
 
 
